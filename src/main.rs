@@ -29,7 +29,9 @@ struct ResponseError {
 
 #[get("/")]
 async fn index() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
+    HttpResponse::Found()
+        .append_header(("Location", "https://docs.tuna2134.dev/api/shorten/"))
+        .finish()
 }
 
 #[get("/{short}")]

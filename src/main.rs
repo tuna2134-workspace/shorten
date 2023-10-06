@@ -1,4 +1,5 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use actix_cors::Cors;
 use sqlx::mysql::MySqlPool;
 use dotenv::dotenv;
 use serde::{Deserialize, Serialize};
@@ -70,11 +71,16 @@ async fn main() -> anyhow::Result<()> {
         .collect();
     let app_state = web::Data::new(AppState { pool, blacklist });
     HttpServer::new(move || {
+        let cors = Cors::default()
+            .allow_any_origin()
+            .allow_any_method()
+            .allow_any_header();
         App::new()
             .service(create_url)
             .service(redirect)
             .service(index)
             .app_data(app_state.clone())
+            .wrap(cors)
     })
     .bind(("0.0.0.0", 8000))?
     .run()

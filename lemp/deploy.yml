@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shorten-deployment
+  labels:
+    app: shorten
+spec:
+  selector:
+    matchLabels:
+      app: shorten
+  template:
+    metadata:
+      labels:
+        app: shorten
+    spec:
+      containers:
+      - name: shorten
+        image: ghcr.io/tuna2134-workspace/shorten
+        ports:
+        - containerPort: 8000

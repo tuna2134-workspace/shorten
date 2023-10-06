@@ -1,0 +1,12 @@
+{
+  "db_name": "MySQL",
+  "query": "INSERT INTO shorten (shortUrl, url) VALUES (?, ?)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "6a31f422e9951faf60b4871b5f8ecea0e4eece28bdc0a933b158aa25224deb59"
+}

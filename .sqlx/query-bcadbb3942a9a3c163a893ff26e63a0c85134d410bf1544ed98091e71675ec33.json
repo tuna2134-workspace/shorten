@@ -1,0 +1,25 @@
+{
+  "db_name": "MySQL",
+  "query": "SELECT shortUrl FROM shorten WHERE url = ?",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "shortUrl",
+        "type_info": {
+          "type": "VarString",
+          "flags": "NOT_NULL | NO_DEFAULT_VALUE",
+          "char_set": 224,
+          "max_size": 1020
+        }
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "bcadbb3942a9a3c163a893ff26e63a0c85134d410bf1544ed98091e71675ec33"
+}

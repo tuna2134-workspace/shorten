@@ -26,6 +26,11 @@ struct ResponseError {
     error: String,
 }
 
+#[get("/")]
+async fn index() -> impl Responder {
+    HttpResponse::Ok().body("Hello world!")
+}
+
 #[get("/{short}")]
 async fn redirect(data: web::Data<AppState>, path: web::Path<(String,)>) -> impl Responder {
     let short = path.into_inner().0;
@@ -68,6 +73,7 @@ async fn main() -> anyhow::Result<()> {
         App::new()
             .service(create_url)
             .service(redirect)
+            .service(index)
             .app_data(app_state.clone())
     })
     .bind(("0.0.0.0", 8000))?

@@ -48,6 +48,7 @@ async fn redirect(data: web::Data<AppState>, path: web::Path<(String,)>) -> impl
             HttpResponse::NotFound()
                 .finish()
         }
+    }
 }
 
 #[post("/")]

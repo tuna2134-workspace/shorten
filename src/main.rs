@@ -37,10 +37,17 @@ async fn index() -> impl Responder {
 #[get("/{short}")]
 async fn redirect(data: web::Data<AppState>, path: web::Path<(String,)>) -> impl Responder {
     let short = path.into_inner().0;
-    let url = utils::get_url(&data.pool, short).await.unwrap();
-    HttpResponse::Found()
-        .append_header(("Location", url))
-        .finish()
+    let url = utils::get_url(&data.pool, short).await;
+    match url {
+        Ok(url) => {
+            HttpResponse::Found()
+                .append_header(("Location", url))
+                .finish()
+        }
+        Err(_) => {
+            HttpResponse::NotFound()
+                .finish()
+        }
 }
 
 #[post("/")]

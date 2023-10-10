@@ -44,16 +44,16 @@ async fn redirect(data: web::Data<AppState>, path: web::Path<(String,)>) -> impl
 }
 
 #[post("/")]
-async fn create_url(data: web::Data<AppState>, body: web::Json<CreateUrl>) -> anyhow::Result<HttpResponse> {
+async fn create_url(data: web::Data<AppState>, body: web::Json<CreateUrl>) -> impl Responder {
     let url = Url::parse(&body.url)?;
     if url.scheme() != "https" {
-        return Ok(HttpResponse::BadRequest().json(ResponseError { error: "Use HTTPS scheme".to_string() }));
+        return HttpResponse::BadRequest().json(ResponseError { error: "Use HTTPS scheme".to_string() });
     }
     if data.blacklist.contains(&url.host_str().unwrap().to_string()) {
-        return Ok(HttpResponse::BadRequest().json(ResponseError { error: "URL is blacklisted".to_string() }));
+        return HttpResponse::BadRequest().json(ResponseError { error: "URL is blacklisted".to_string() });
     }
     if let Some(short) = utils::get_existed(&data.pool, url.to_string()).await {
-        return Ok(HttpResponse::Ok().json(ShortUrl { short }));
+        return HttpResponse::Ok().json(ShortUrl { short });
     }
     let short = utils::create_random();
     utils::create_short(&data.pool, short.clone(), url.to_string()).await.unwrap();

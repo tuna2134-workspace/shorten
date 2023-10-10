@@ -44,7 +44,7 @@ async fn redirect(data: web::Data<AppState>, path: web::Path<(String,)>) -> impl
 }
 
 #[post("/")]
-async fn create_url(data: web::Data<AppState>, body: web::Json<CreateUrl>) -> anyhow::Result<impl Responder> {
+async fn create_url(data: web::Data<AppState>, body: web::Json<CreateUrl>) -> anyhow::Result<HttpResponse> {
     let url = Url::parse(&body.url)?;
     if url.scheme() != "https" {
         return Ok(HttpResponse::BadRequest().json(ResponseError { error: "Use HTTPS scheme".to_string() }));

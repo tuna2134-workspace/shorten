@@ -46,6 +46,7 @@ async fn redirect(data: web::Data<AppState>, path: web::Path<(String,)>) -> impl
         }
         Err(_) => {
             HttpResponse::NotFound()
+                .body("Not found")
                 .finish()
         }
     }

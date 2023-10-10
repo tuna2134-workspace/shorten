@@ -57,7 +57,7 @@ async fn create_url(data: web::Data<AppState>, body: web::Json<CreateUrl>) -> im
     }
     let short = utils::create_random();
     utils::create_short(&data.pool, short.clone(), url.to_string()).await.unwrap();
-    Ok(HttpResponse::Ok().json(ShortUrl { short }))
+    HttpResponse::Ok().json(ShortUrl { short })
 }
 
 #[actix_web::main]

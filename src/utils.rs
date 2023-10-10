@@ -19,14 +19,14 @@ pub async fn get_url(pool: &MySqlPool, short: String) -> anyhow::Result<String> 
     Ok(result.url)
 }
 
-pub async fn get_existed(pool: &MySqlPool, url: String) -> anyhow::Result<Option<String>> {
+pub async fn get_existed(pool: &MySqlPool, url: String) -> Option<String> {
     let result = sqlx::query!(
         "SELECT shortUrl FROM shorten WHERE url = ?",
         url
     ).fetch_one(pool).await;
     match result {
-        Ok(result) => Ok(Some(result.shortUrl)),
-        Err(_) => Ok(None),
+        Ok(result) => Some(result.shortUrl),
+        Err(_) => None,
     }
 }
 

@@ -9,6 +9,6 @@ FROM scratch
 
 WORKDIR /src/app
 
-COPY --from=builder /src/builder/target/x86_64-unknown-linux-musl/release/shorten .
+COPY --from=builder /src/builder/target/release/shorten .
 
 CMD ["./shorten"]

@@ -11,6 +11,6 @@ actix-web = "4.4.0"
 anyhow = "1.0.75"
 dotenv = "0.15.0"
 rand = "0.8.5"
-serde = "1.0.188"
+serde = "1.0.192"
 sqlx = { version = "0.7.2", features = ["mysql", "runtime-tokio"] }
 url = "2.4.1"
